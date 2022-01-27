@@ -1,38 +1,3 @@
-# A Burgershot for QBCore Framework
-
-Preview *outdated* : https://www.youtube.com/watch?v=9sLa6d6hUXY&t=42s
-
-
-## Please note
-
-- I have added an option for people not using qb-target replace the menus.lua file with the menus-notarget.lua file and uncomment lines in the config folder.
-
-- Please make sure u use the latest dependencies aswell as core for this in order to work.
-
-- This Job has been tested on the latest build as of 14/01/2022.
-
-
-## Dependencies :
-
-QBCore Framework - https://github.com/qbcore-framework/qb-core
-
-PolyZone - https://github.com/mkafrin/PolyZone
-
-qb-target - https://github.com/BerkieBb/qb-target (Only needed if not using draw text)
-
-qb-input - https://github.com/qbcore-framework/qb-input
-
-qb-menu - https://github.com/qbcore-framework/qb-menu
-
-
-## Credits : 
-
-- BerkieB for his qb-target.
-
-## Newly Added
-
-- Different types of coupons 
-
 ## Insert into @qb-smallresources --> server --> consumables.lua
 ```
 --Burgershot
@@ -200,19 +165,19 @@ QBShared.Jobs = {
 ## Insert into @qb-target - config.lua - config.targetmodels
 ``` 
 ["burgershotgarage"] = {
-			models = {
-				"ig_floyd"
-			},
-			options = {
-				{
-					type = "client",
-					event = "garage:BurgerShotGarage",
-					icon = "fas fa-car",
-					label = "BurgerShot Garage",
-					job = "burgershot",
-				}
-			},
-			distance = 2.5,
-		},
+	models = {
+		"ig_floyd"
+	},
+	options = {
+		{
+			type = "client",
+			event = "garage:BurgerShotGarage",
+			icon = "fas fa-car",
+			label = "BurgerShot Garage",
+			job = "burgershot",
+		}
+	},
+	distance = 2.5,
+},
 
 ```
