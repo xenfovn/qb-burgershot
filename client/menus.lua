@@ -1,13 +1,9 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-
+local onDuty = false
 isLoggedIn = true
 PlayerJob = {}
 
-local onDuty = false
-
--- target
-
-Citizen.CreateThread(function()
+CreateThread(function()
 	exports['qb-target']:AddBoxZone("BurgerShotDuty", vector3(-1196.95, -902.69, 14.0), 1, 1.2, {
 		name = "BurgerShotDuty",
 		heading = 32,
@@ -19,29 +15,29 @@ Citizen.CreateThread(function()
 		    {  
 			event = "qb-burgershot:DutyB",
 			icon = "far fa-clipboard",
-			label = "Clock On/Off",
+			label = "On/Off DUTY",
 			job = "burgershot",
 		    },
 		},
 		distance = 1.5
 	})
 
-		exports['qb-target']:AddBoxZone("burger_tray_1", vector3(-1195.29, -892.31, 14.0), 1.05, 1.0, {
-			name = "burger_tray_1",
-			heading = 35.0,
-			debugPoly = false,
-			minZ=13.8,
-			maxZ=14.3,
-		}, {
-			options = {
-			    {
-				event = "qb-burgershot:Tray1",
-				icon = "far fa-clipboard",
-				label = "Tray 1",
-			    },
-			},
-			distance = 1.5
-		})
+    exports['qb-target']:AddBoxZone("burger_tray_1", vector3(-1195.29, -892.31, 14.0), 1.05, 1.0, {
+        name = "burger_tray_1",
+        heading = 35.0,
+        debugPoly = false,
+        minZ=13.8,
+        maxZ=14.3,
+    }, {
+        options = {
+            {
+            event = "qb-burgershot:Tray1",
+            icon = "far fa-clipboard",
+            label = "Đĩa 1",
+            },
+        },
+        distance = 1.5
+    })
 
 	exports['qb-target']:AddBoxZone("burger_tray_2", vector3(-1193.87, -894.38, 14.0), 0.5, 0.7, {
 		name="burger_tray_2",
@@ -54,7 +50,7 @@ Citizen.CreateThread(function()
 		    {
 			event = "qb-burgershot:Tray4",
 			icon = "far fa-clipboard",
-			label = "Tray 2",
+			label = "Đĩa 2",
 		    },
 		},
 		distance = 1.5
@@ -71,7 +67,7 @@ Citizen.CreateThread(function()
 		    {
 			event = "qb-burgershot:Tray3",
 			icon = "far fa-clipboard",
-			label = "Tray 3",
+			label = "Đĩa 3",
 		    },
 		},
 		distance = 3.5
@@ -89,7 +85,7 @@ Citizen.CreateThread(function()
 			{
 				event = "qb-burgershot:PattyFry",
 				icon = "fas fa-hamburger",
-				label = "Burger Cook Station",
+				label = "Nướng Thịt",
 				job = "burgershot",
 			},
 		},
@@ -107,30 +103,30 @@ Citizen.CreateThread(function()
 			{
 				event = "qb-burgershot:PattyFry",
 				icon = "fas fa-hamburger",
-				label = "Burger Cook Station 2",
+				label = "Nướng Thịt",
 				job = "burgershot",
 			},
 		},
 		distance = 1.5
 	})
 
-		exports['qb-target']:AddBoxZone("burgershotfryer", vector3(-1202.01, -899.27, 14.0), 2.5, 1.5, {
-		name="burgershotfryer",
-		heading=35,
-		debugPoly=false,
-		minZ=13.0,
-		maxZ=14.4,
-		}, {
-		    options = {
-			{
-			    event = "qb-burgershot:Fries",
-			    icon = "fas fa-box",
-			    label = "Make Fries",
-			    job = "burgershot",
-			},
-		    },
-		    distance = 1.5
-		})
+    exports['qb-target']:AddBoxZone("burgershotfryer", vector3(-1202.01, -899.27, 14.0), 2.5, 1.5, {
+        name="burgershotfryer",
+        heading=35,
+        debugPoly=false,
+        minZ=13.0,
+        maxZ=14.4,
+        }, {
+            options = {
+            {
+                event = "qb-burgershot:Fries",
+                icon = "fas fa-box",
+                label = "Chiên Khoai Tây",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })
 
 
 	exports['qb-target']:AddBoxZone("burgershotdrinks", vector3(-1199.54, -895.52, 14.0), 2.2, 0.6, {
@@ -140,172 +136,167 @@ Citizen.CreateThread(function()
 	    minZ=13.8,
 	    maxZ=14.8,
 	    }, {
-		options = {
-		    {
-			event = "nh-context:DrinkMenu",
-			icon = "fas fa-filter",
-			label = "Make Some Drinks",
-			job = "burgershot",
-		    },
-		},
-		distance = 1.5
-	    })
-
-        exports['qb-target']:AddBoxZone("burgershotdrinks2", vector3(-1189.08, -905.28, 14.0), 1.15, 0.7, {
-            name="burgershotdrinks2",
-            heading=33,
-            debugPoly=false,
-            minZ=13.8,
-            maxZ=14.8,
-            }, {
-                options = {
-                    {
-                        event = "nh-context:DrinkMenu",
-                        icon = "fas fa-filter",
-                        label = "Make Some Drinks",
-                        job = "burgershot",
-                    },
+            options = {
+                {
+                event = "nh-context:DrinkMenu",
+                icon = "fas fa-filter",
+                label = "Làm Đồ Uống",
+                job = "burgershot",
                 },
-                distance = 1.5
-            })
+            },
+        distance = 1.5
+    })
+
+    exports['qb-target']:AddBoxZone("burgershotdrinks2", vector3(-1189.08, -905.28, 14.0), 1.15, 0.7, {
+        name="burgershotdrinks2",
+        heading=33,
+        debugPoly=false,
+        minZ=13.8,
+        maxZ=14.8,
+    }, {
+        options = {
+            {
+                event = "nh-context:DrinkMenu",
+                icon = "fas fa-filter",
+                label = "Làm Đồ Uống",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })
 
 
-         exports['qb-target']:AddBoxZone("burgerfridge", vector3(-1203.71, -895.86, 14.0), 1.6, 1, {
-            name="burgerfridge",
-            heading=35,
-            debugPoly=false,
-            minZ=13.0,
-            maxZ=15.6,
-        }, {
-                options = {
-                    {
-                        event = "nh-context:OrderMenu",
-                        icon = "fas fa-laptop",
-                        label = "Order Ingredients!",
-                        job = "burgershot",
-                    },
-                },
-                distance = 1.5
-            })
+    exports['qb-target']:AddBoxZone("burgerfridge", vector3(-1203.71, -895.86, 14.0), 1.6, 1, {
+        name="burgerfridge",
+        heading=35,
+        debugPoly=false,
+        minZ=13.0,
+        maxZ=15.6,
+    }, {
+        options = {
+            {
+                event = "nh-context:OrderMenu",
+                icon = "fas fa-laptop",
+                label = "Nguyên Liệu!",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })
 
-        exports['qb-target']:AddBoxZone("burgershotdisplay", vector3(-1197.78, -894.45, 14.0), 4.6, 1.2, {
-            name="burgershotdisplay",
-            heading=34,
-            debugPoly=false,
-            minZ=13.0,
-            maxZ=14.8,
-        }, {
-                options = {
-                    {
-                        event = "qb-burgershot:Storage",
-                        icon = "fas fa-box",
-                        label = "Storage",
-                        job = "burgershot",
-                    },
-                },
-                distance = 1.5
-            })
-
-
-        exports['qb-target']:AddBoxZone("craftburger", vector3(-1197.57, -899.41, 14.0), 1.8, 0.7, {
-            name="craftburger",
-            heading=304,
-            debugPoly=false,
-            minZ=13.0,
-            maxZ=14.4,
-        }, {
-                options = {
-                    {
-                        event = "nh-context:Burgers",
-                        icon = "fas fa-cheeseburger",
-                        label = "Burger Work Station",
-                        job = "burgershot",
-                    },
-                },
-                distance = 1.5
-            })
+    exports['qb-target']:AddBoxZone("burgershotdisplay", vector3(-1197.78, -894.45, 14.0), 4.6, 1.2, {
+        name="burgershotdisplay",
+        heading=34,
+        debugPoly=false,
+        minZ=13.0,
+        maxZ=14.8,
+    }, {
+        options = {
+            {
+                event = "qb-burgershot:Storage",
+                icon = "fas fa-box",
+                label = "Tủ Đồ",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })
 
 
-        exports['qb-target']:AddBoxZone("BurgerShot_register_1", vector3(-1196.01, -891.34, 14.0), 0.5, 0.4, {
-            name="BurgerShot_register_1",
-            debugPoly=false,
-            heading=125,
-            minZ=14.0,
-            maxZ=14.5,
-        }, {
-                options = {
-                    {
-                        event = "qb-burgershot:bill",
-                        parms = "1",
-                        icon = "fas fa-credit-card",
-                        label = "Charge Customer",
-                        job = "burgershot",
-                    },
-                },
-                distance = 1.5
-            })
-
-        exports['qb-target']:AddBoxZone("BurgerShot_register_2", vector3(-1194.65, -893.3, 14.0), 0.6, 0.5, {
-            name="BurgerShot_register_2",
-            debugPoly=false,
-            heading=302,
-            minZ=14.1,
-            maxZ=14.5,
-            }, {
-                    options = {
-                        {
-                            event = "qb-burgershot:bill",
-                            parms = "2",
-                            icon = "fas fa-credit-card",
-                            label = "Charge Customer",
-                            job = "burgershot",
-                        },
-                    },
-                    distance = 1.5
-                })  
+    exports['qb-target']:AddBoxZone("craftburger", vector3(-1197.57, -899.41, 14.0), 1.8, 0.7, {
+        name="craftburger",
+        heading=304,
+        debugPoly=false,
+        minZ=13.0,
+        maxZ=14.4,
+    }, {
+        options = {
+            {
+                event = "nh-context:Burgers",
+                icon = "fas fa-cheeseburger",
+                label = "Chuẩn Bị Suất Ăn",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })
 
 
-        exports['qb-target']:AddBoxZone("BurgerShot_register_3", vector3(-1193.39, -895.22, 14.0), 0.6, 0.4, {
-            name="BurgerShot_register_3",
-            debugPoly=false,
-            heading=125,
-            minZ=14.0,
-            maxZ=14.4,
-                    }, {
-                            options = {
-                                {
-                                    event = "qb-burgershot:bill",
-                                    parms = "3",
-                                    icon = "fas fa-credit-card",
-                                    label = "Charge Customer",
-                                    job = "burgershot",
-                                },
-                            },
-                            distance = 1.5
-                        })  
+    exports['qb-target']:AddBoxZone("BurgerShot_register_1", vector3(-1196.01, -891.34, 14.0), 0.5, 0.4, {
+        name="BurgerShot_register_1",
+        debugPoly=false,
+        heading=125,
+        minZ=14.0,
+        maxZ=14.5,
+    }, {
+        options = {
+            {
+                event = "qb-burgershot:bill",
+                parms = "1",
+                icon = "fas fa-credit-card",
+                label = "Thanh Toán",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })
 
+    exports['qb-target']:AddBoxZone("BurgerShot_register_2", vector3(-1194.65, -893.3, 14.0), 0.6, 0.5, {
+        name="BurgerShot_register_2",
+        debugPoly=false,
+        heading=302,
+        minZ=14.1,
+        maxZ=14.5,
+    }, {
+        options = {
+            {
+                event = "qb-burgershot:bill",
+                parms = "2",
+                icon = "fas fa-credit-card",
+                label = "Thanh Toán",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })  
 
+    exports['qb-target']:AddBoxZone("BurgerShot_register_3", vector3(-1193.39, -895.22, 14.0), 0.6, 0.4, {
+        name="BurgerShot_register_3",
+        debugPoly=false,
+        heading=125,
+        minZ=14.0,
+        maxZ=14.4,
+    }, {
+        options = {
+            {
+                event = "qb-burgershot:bill",
+                parms = "3",
+                icon = "fas fa-credit-card",
+                label = "Thanh Toán",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })  
 
-
-        exports['qb-target']:AddBoxZone("BurgerShot_register_4", vector3(-1192.52, -906.65, 14.0), 0.5, 0.5, {
-            name="BurgerShot_register_4",
-            heading=0,
-            debugPoly=false,
-            minZ=13.8,
-            maxZ=14.2,
-                }, {
-                        options = {
-                            {
-                                event = "qb-burgershot:bill",
-                                parms = "4",
-                                icon = "fas fa-credit-card",
-                                label = "Charge Customer",
-                                job = "burgershot",
-                            },
-                        },
-                        distance = 1.5
-            })
-
+    exports['qb-target']:AddBoxZone("BurgerShot_register_4", vector3(-1192.52, -906.65, 14.0), 0.5, 0.5, {
+        name="BurgerShot_register_4",
+        heading=0,
+        debugPoly=false,
+        minZ=13.8,
+        maxZ=14.2,
+    }, {
+        options = {
+            {
+                event = "qb-burgershot:bill",
+                parms = "4",
+                icon = "fas fa-credit-card",
+                label = "Thanh Toán",
+                job = "burgershot",
+            },
+        },
+        distance = 1.5
+    })
 end)
 
 
@@ -315,60 +306,60 @@ RegisterNetEvent('nh-context:Burgers', function(data)
     exports['qb-menu']:openMenu({
         {
             
-            header = "| Available Burgers |",
+            header = "| Thực Đơn |",
             isMenuHeader = true, -- Set to true to make a nonclickable title
         },
         {
             
-            header = "• Moneyshot Burger",
-            txt = "Bun , Cooked Patty , Tomato , Lettuce",
+            header = "• Burger Cỡ Lớn",
+            txt = "Bánh , Thịt Nướng , Cà Chua , Rau Cải",
             params = {
                 event = "qb-burgershot:MoneyShot"
             }
         },
         {
             
-            header = "• Meat Free Burger",
-            txt = "Bun , Tomato , Lettuce",
+            header = "• Burger Giá Rẻ",
+            txt = "Bánh , Cà Chua , Rau Cải",
             params = {
                 event = "qb-burgershot:MeatFree"
             }
         },
         {
             
-            header = "• Bleeder Burger",
-            txt = "Bun , Cooked Patty , Tomato , Lettuce",
+            header = "• Burger Cỡ Nhỏ",
+            txt = "Bánh , Thịt Nướng , Cà Chua , Rau Cải",
             params = {
                 event = "qb-burgershot:BleederBurger"
             }
         },
         {
             
-            header = "• The Heart Stopper",
-            txt = "Bun , Cooked Patty , Tomato , Lettuce",
+            header = "• Burger Đặc Biệt",
+            txt = "Bánh , Thịt Nướng , Cà Chua , Rau Cải",
             params = {
                 event = "qb-burgershot:HeartStopper"
             }
         },
         {
             
-            header = "• Torpedo Roll",
-            txt = "Bun , Cooked Meat",
+            header = "• Bánh Mì PATE",
+            txt = "Bánh , Thịt Nước",
             params = {
                 event = "qb-burgershot:Torpedo"
             }
         },
         {
             
-            header = "• Murder Meal",
-            txt = "The Heart Stopper, Fries and SoftDrink",
+            header = "• Suất Ăn Mang Về",
+            txt = "Burger Đặc Biệt, Khoa Tây Chiên Và Đồ Uống",
             params = {
                 event = "qb-burgershot:CreateMurderMeal"
             }
         },
         {
             id = 7,
-            header = "Close (ESC)",
+            header = "Đóng (ESC)",
             isMenuHeader = true, -- Set to true to make a nonclickable title
         },
     })
@@ -384,23 +375,23 @@ RegisterNetEvent('nh-context:OrderMenu', function(data)
         },
         {
             
-            header = "• Order Items",
-            txt = "Order New Ingredients!",
+            header = "• Mua Nguyên Liệu",
+            txt = "Mua Nguyên Liệu Mới!",
             params = {
                 event = "qb-burgershot:shop"
             }
         },
         {
            
-            header = "• Open Fridge",
-            txt = "See what you have in storage",
+            header = "• Kho Đồ",
+            txt = "Xem Kho Nguyên Liệu",
             params = {
                 event = "qb-burgershot:Storage2"
             }
         },
         {
             
-            header = "Close (ESC)",
+            header = "Đóng (ESC)",
             isMenuHeader = true, -- Set to true to make a nonclickable title
         },
     })
@@ -410,49 +401,48 @@ RegisterNetEvent('nh-context:DrinkMenu', function(data)
     exports['qb-menu']:openMenu({
         {
             id = 0,
-            header = "| Drink Menu |",
+            header = "| Máy Nước |",
             isMenuHeader = true, -- Set to true to make a nonclickable title
         },
         {
             
-            header = "• Soft Drink",
-            txt = "Soda Syrup",
+            header = "• Nước Có Gas",
+            txt = "Soda Chanh Muối",
             params = {
                 event = "qb-burgershot:SoftDrink"
             }
         },
         {
             
-            header = "• Milkshake",
-            txt = "Milkshake Formula",
+            header = "• Trà Sữa",
+            txt = "Trà Sữa",
             params = {
                 event = "qb-burgershot:mShake"
             }
         },
         {
            
-            header = "Close (ESC)",
+            header = "Đóng (ESC)",
             isMenuHeader = true, -- Set to true to make a nonclickable title
         },
     })
 end)
 
-
 -- Till Stuff --
-RegisterNetEvent("qb-burgershot:bill")
-AddEventHandler("qb-burgershot:bill", function()
+
+RegisterNetEvent("qb-burgershot:bill", function()
     local bill = exports['qb-input']:ShowInput({
-        header = "Create Receipt",
-		submitText = "Bill",
+        header = "Tạo Hóa Đơn",
+		submitText = "Hóa Đơn",
         inputs = {
             {
-                text = "Server ID(#)",
+                text = "Số ID(#)",
 				name = "citizenid", -- name of the input should be unique otherwise it might override
                 type = "text", -- type of the input
                 isRequired = true -- Optional [accepted values: true | false] but will submit the form if no value is inputted
             },
             {
-                text = "Bill Price ($)", -- text you want to be displayed as a place holder
+                text = "Số Tiền ($)", -- text you want to be displayed as a place holder
                 name = "billprice", -- name of the input should be unique otherwise it might override
                 type = "number", -- type of the input - number will not allow non-number characters in the field so only accepts 0-9
                 isRequired = false -- Optional [accepted values: true | false] but will submit the form if no value is inputted

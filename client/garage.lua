@@ -1,29 +1,18 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-PlayerData = {}
 local pedspawned = false
+PlayerData = {}
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
-function QBCore.Functions.GetPlayerData(cb)
-    if cb then
-        cb(QBCore.PlayerData)
-    else
-        return QBCore.PlayerData
-    end
-end
-
-RegisterNetEvent('QBCore:Client:OnJobUpdate')
-AddEventHandler('QBCore:Client:OnJobUpdate', function(job)
-     	PlayerData.job = job
+RegisterNetEvent('QBCore:Client:OnJobUpdate', function(job)
+    PlayerData.job = job
 end)
 
-RegisterNetEvent('QBCore:Player:SetPlayerData')
-AddEventHandler('QBCore:Player:SetPlayerData', function(val)
+RegisterNetEvent('QBCore:Player:SetPlayerData', function(val)
 	PlayerData = val
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(1000)
+		Wait(1000)
 		for k, v in pairs(Config.GaragePedLocations) do
 			local pos = GetEntityCoords(PlayerPedId())	
 			local dist = #(pos - vector3(v.coords.x, v.coords.y, v.coords.z))
@@ -40,8 +29,7 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('qb-burgershot:spawn:ped')
-AddEventHandler('qb-burgershot:spawn:ped',function(coords)
+RegisterNetEvent('qb-burgershot:spawn:ped',function(coords)
 	local hash = `ig_floyd`
 
 	RequestModel(hash)
@@ -49,59 +37,57 @@ AddEventHandler('qb-burgershot:spawn:ped',function(coords)
 		Wait(10)
 	end
 
-    	pedspawned = true
-        npc = CreatePed(5, hash, coords.x, coords.y, coords.z - 1.0, coords.w, false, false)
-        FreezeEntityPosition(npc, true)
-        SetBlockingOfNonTemporaryEvents(npc, true)
-        loadAnimDict("amb@world_human_cop_idles@male@idle_b") 
-        TaskPlayAnim(npc, "amb@world_human_cop_idles@male@idle_b", "idle_e", 8.0, 1.0, -1, 17, 0, 0, 0, 0)
+    pedspawned = true
+    npc = CreatePed(5, hash, coords.x, coords.y, coords.z - 1.0, coords.w, false, false)
+    FreezeEntityPosition(npc, true)
+    SetBlockingOfNonTemporaryEvents(npc, true)
+    loadAnimDict("amb@world_human_cop_idles@male@idle_b") 
+    TaskPlayAnim(npc, "amb@world_human_cop_idles@male@idle_b", "idle_e", 8.0, 1.0, -1, 17, 0, 0, 0, 0)
 end)
 
 function loadAnimDict(dict)
     RequestAnimDict(dict)
     while not HasAnimDictLoaded(dict) do
-        Citizen.Wait(5)
+        Wait(5)
     end
 end
 
-RegisterNetEvent('qb-burgershot:garage')
-AddEventHandler('qb-burgershot:garage', function(bs)
+RegisterNetEvent('qb-burgershot:garage', function(bs)
     local vehicle = bs.vehicle
     local coords = vector4(-1172.861, -888.4072, 13.940833, 40.516719)
-        if PlayerData.job.name == "burgershot" then
-            if vehicle == 'stalion2' then		
-                QBCore.Functions.SpawnVehicle(vehicle, function(veh)
-                    SetVehicleNumberPlateText(veh, "BURGER"..tostring(math.random(1000, 9999)))
-                    exports['LegacyFuel']:SetFuel(veh, 100.0)
-                    SetEntityHeading(veh, coords.w)
-                    TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
-                    TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
-                    SetVehicleEngineOn(veh, true, true)
-                end, coords, true)
-            end
-        else
-            QBCore.Functions.Notify('You are not an employee of BurgerShot.', 'error')
+    if PlayerData.job.name == "burgershot" then
+        if vehicle == 'stalion2' then		
+            QBCore.Functions.SpawnVehicle(vehicle, function(veh)
+                SetVehicleNumberPlateText(veh, "BURGER"..tostring(math.random(1000, 9999)))
+                exports['LegacyFuel']:SetFuel(veh, 100.0)
+                SetEntityHeading(veh, coords.w)
+                TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
+                TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
+                SetVehicleEngineOn(veh, true, true)
+            end, coords, true)
         end
+    else
+        QBCore.Functions.Notify('bạn không phải nhân viên.', 'error')
+    end
 end)
 
-RegisterNetEvent('qb-burgershot:storecar')
-AddEventHandler('qb-burgershot:storecar', function()
-    QBCore.Functions.Notify('Work Vehicle Stored!')
+RegisterNetEvent('qb-burgershot:storecar', function()
+    QBCore.Functions.Notify('đã cất xe công ty!')
     local car = GetVehiclePedIsIn(PlayerPedId(),true)
     NetworkFadeOutEntity(car, true,false)
-    Citizen.Wait(2000)
+    Wait(2000)
     QBCore.Functions.DeleteVehicle(car)
 end)
 
 RegisterNetEvent('garage:BurgerShotGarage', function()
     exports['qb-menu']:openMenu({
         {
-            header = "| BurgerShot Garage |",
+            header = "| Kho xe cửa hàng |",
             isMenuHeader = true, -- Set to true to make a nonclickable title
         },
         {
-            header = "• Stallion",
-            txt = "Declasse Burger Shot Stallion",
+            header = "• Xe giao hàng",
+            txt = "Xe Giao Hàng",
             params = {
                 event = "qb-burgershot:garage",
                 args = {
@@ -110,8 +96,8 @@ RegisterNetEvent('garage:BurgerShotGarage', function()
             }
         },
         {
-            header = "• Store Vehicle",
-            txt = "Store Vehicle Inside Garage",
+            header = "• Cất Xe",
+            txt = "cất xe giao hàng",
             params = {
                 event = "qb-burgershot:storecar",
                 args = {
@@ -120,7 +106,7 @@ RegisterNetEvent('garage:BurgerShotGarage', function()
             }
         },	
         {
-            header = "Close (ESC)",
+            header = "đóng (ESC)",
             isMenuHeader = true,
         },	
     })
